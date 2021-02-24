@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./assets/lib/jquery.js"></script>
+</head>
+
+<body>
+    <script>
+        // let timer = null
+
+        // function debounceFn(keywords) {
+        //     timer = setTimeout(function () {
+        //         getSearchValue(keywords) //根据用户输入的关键字 搜索数据
+        //     }, 1000)
+        // }
+        // $('.btn').on('keyup', function () {
+        //     // 这个按钮被点击的时候，首先清空延时器
+        //     clearTimeout(timer)
+
+        //     // 其他代码.....
+
+        //     debounceFn() //重新执行延时器
+        // })
+
+        // // 定义一个延时器
+        // let timer = null
+
+        // // 设置延时器函数
+        // function debounceFn(keywords){
+        //     timer = setTimeout(function(){
+        //         // 时间到了就执行这个获取搜索数据的函数
+        //         getSearchValue(keywords)
+        //     },500)
+        // }
+
+        // // 键盘事件
+        // $('.title').on('keyup',function(){
+        //     clearTimeout(timer)
+        //     // 执行其他代码...
+        //     // 然后再重新开始延时器函数
+        //     debounceFn(keywords)
+        // })
+
+        // 1、定义一个延时器
+        let timer = null
+
+        // 2、创建延时器函数
+        function debounceFn (keywords){
+            timer = setTimeout(function(){
+                // 时间到了就执行获取搜索数据的函数
+                getSearchValue(keywords)
+            })
+        }
+        // 3、事件触发的话就清空延时器 并重新调用
+        $('.title').on('click',function(){
+            // 事件一旦被触发就马上清空延时器 然后重新开启
+            clearTimeout(timer)
+            // 其他代码...
+            // 重新执行一次延时器
+            debounceFn(keywords)
+        })
+
+        let timer = null
+        function debounceFn (keywords) {
+            timer = setTimeout(function(){
+                getSearchValue(keywords)
+            },500)
+        }
+        $('.title').on('keyup',function(){
+            clearTimeout(timer)
+            //.......
+            debounceFn(keywords)
+        })
+    </script>
+</body>
+
+</html>
