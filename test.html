@@ -10,72 +10,62 @@
 </head>
 
 <body>
+    <button onclick="test()">点击</button>
     <script>
-        // let timer = null
+        var count = 0;
+        // 防抖的重点在于闭包作用域和清除定时器
+        function debounce() {
+            var timer; // 定时器
+            // 重点
+            return function () {
+                consoleTime("1.闭包")
 
-        // function debounceFn(keywords) {
-        //     timer = setTimeout(function () {
-        //         getSearchValue(keywords) //根据用户输入的关键字 搜索数据
-        //     }, 1000)
-        // }
-        // $('.btn').on('keyup', function () {
-        //     // 这个按钮被点击的时候，首先清空延时器
-        //     clearTimeout(timer)
-
-        //     // 其他代码.....
-
-        //     debounceFn() //重新执行延时器
-        // })
-
-        // // 定义一个延时器
-        // let timer = null
-
-        // // 设置延时器函数
-        // function debounceFn(keywords){
-        //     timer = setTimeout(function(){
-        //         // 时间到了就执行这个获取搜索数据的函数
-        //         getSearchValue(keywords)
-        //     },500)
-        // }
-
-        // // 键盘事件
-        // $('.title').on('keyup',function(){
-        //     clearTimeout(timer)
-        //     // 执行其他代码...
-        //     // 然后再重新开始延时器函数
-        //     debounceFn(keywords)
-        // })
-
-        // 1、定义一个延时器
-        let timer = null
-
-        // 2、创建延时器函数
-        function debounceFn (keywords){
-            timer = setTimeout(function(){
-                // 时间到了就执行获取搜索数据的函数
-                getSearchValue(keywords)
-            })
+                clearTimeout(timer); // 清除定时器，重点
+                timer = setTimeout(function () {
+                    funct();
+                }, 1000);
+            }
         }
-        // 3、事件触发的话就清空延时器 并重新调用
-        $('.title').on('click',function(){
-            // 事件一旦被触发就马上清空延时器 然后重新开启
-            clearTimeout(timer)
-            // 其他代码...
-            // 重新执行一次延时器
-            debounceFn(keywords)
-        })
+        // 定时器要执行的函数
+        function funct(args) {
+            consoleTime("2.定时器")
+            console.log("----- 分割线 -----")
 
-        let timer = null
-        function debounceFn (keywords) {
-            timer = setTimeout(function(){
-                getSearchValue(keywords)
-            },500)
+            let testId = document.getElementById("test");
+            ++count;
+            testId.innerHTML = `hello ${count}`;
         }
-        $('.title').on('keyup',function(){
-            clearTimeout(timer)
-            //.......
-            debounceFn(keywords)
-        })
+
+        // 打印时间
+        function consoleTime(text) {
+            let date = new Date();
+            console.log(text, date.toLocaleTimeString(), date.getMilliseconds());
+        }
+
+        // 重点：先把debounce函数返回的匿名函数(闭包)赋值给一个变量
+        var test = debounce()
+
+        // html， 这里看清楚了，onclick绑定的是test不是debounce
+
+
+        //             分析：
+        // 两个知识点（闭包作用域和定时器）
+        // 1、var test = debounce()
+        // 2、return function(){...}
+        // 3、clearTimeout(timer);
+
+        // 实现原理：
+        // 1、需要设定在某个时间内，只执行最后一次，因此用到了定时器setTimeout 来设定时间。
+
+        // 2、因为只执行最后一次，所以需要在每次执行之前把上一次的清除掉，因为设定时间还没到，那么定时器里的函数还没执行，所以我们清除了上一次的定时器函数就不会执行了。因此有重点3，所以每次我们都把定时器setTimeout返回的id记录下来。
+
+        // 3、使用闭包，是为了在它所在的作用域保存setTimeout返回的id，以便于在设定时间内点击时清除上一次的setTimeout。
+
+        // 4、如果onclick绑定debounce返回的匿名函数，每一次点击，debounce都会重新执行。那么clearTimeout是清除不了上一次定时器的。
+
+        // 5、onclick绑定test，每次点击，test()都能访问debounce()的内部作用域，所以能记录每次定时器setTimeout返回的id，并清除上一次的定时器。（闭包所在的内部作用域变量不会被回收）
+
+        // 本来没打算写函数防抖的，因为网上很多文章，我写这个是为了记录学习理解的内容。写着写着不会表达了，如有错误表达望指出。
     </script>
 </body>
 

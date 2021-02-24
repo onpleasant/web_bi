@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="firstBox">
+        <div class="box">
+            <div class="btn"></div>
+            <input type="text" id="cph" value="" />
+        </div>
+        <div class="content">
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var oInp = document.getElementById("cph");
+
+    oInp.oninput = debounce(user, 1000);
+
+    function debounce(handler, delay) {
+        var timer = null;
+        // 返回函数引用
+        return function () {
+            // console.log(this); this指向了调用者 input
+            var _self = this;
+            // console.log(arguments);
+            var _args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                /*改变handler的this指向。
+                 * handler的this指向当前返回的函数引用，例如：oInp.oninput = debounce(ajax, 1000);
+                 * 此时this就是指向oInp.oninput了
+                 */
+                handler.apply(_self, _args);
+            }, delay);
+        }
+    }
+
+    // function ajax(e) {
+    //     console.log(e + " " + this.value);
+    // }
+
+    function user() {
+        console.log(this.value);
+    }
+</script>
+
+</html>

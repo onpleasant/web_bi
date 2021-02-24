@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="assets/lib/jquery.js"></script>
+</head>
+
+<body>
+    <input type="input" id="ipt1" />
+    <input type="input" id="ipt2" />
+    <input type="input" id="ipt3" />
+
+    <script>
+        function debounce(fn, delay) {
+            let timer = null
+            return function (...args) {
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    fn(...args);
+                }, delay)
+            }
+        }
+
+
+
+        function fangfa(value, ft) {
+            console.log(value);
+            alert(ft)
+        }
+
+        // function fangfa2 (value) {
+        //     alert(value)
+        // }
+        let deinput = debounce(fangfa, 1000)
+
+        $('#ipt1').on('keyup', function () {
+            deinput(1, 'pingguo')
+        })
+        $('#ipt2').on('keyup', function () {
+            deinput(2, 'xiangjiao')
+        })
+        $('#ipt3').on('keyup', function () {
+            deinput(3, 'li')
+        })
+        // $('#ipt2').on('keyup', debounce(fn1(2), 1500))
+        // $('#ipt3').on('keyup', debounce(fn1(3), 3500))
+
+
+        // $('#ip1').on('keyup', function () {
+        //     setTimeout(() => {
+        //         console.log($(this).val());
+        //     }, 1000)
+        // })
+
+
+
+        // function debounce(delay) {
+        //     let timer = null
+
+        //     return function () {
+        //         // let inpThis = this
+        //         clearTimeout(timer)
+        //         timer = setTimeout(function () {
+        //             console.log($(this).val());
+        //         }.bind(this), delay)
+        //     }
+
+        // }
+
+        // $('#ipt1').on('keyup', debounce(1000))
+        // $('#ipt2').on('keyup', debounce(3000))
+        // $('#ipt3').on('keyup', debounce(6000))
+
+        // function debounce(delay) {
+        //     let timer = null
+        //     return function () {
+        //         clearTimeout(timer)
+        //         timer = setTimeout(function () {
+        //             console.log($(this).val());
+        //         }.bind(this), delay)
+        //     }
+        // }
+
+        // $('#ipt1').on('keyup', debounce(500))
+        // $('#ipt2').on('keyup', debounce(2000))
+        // $('#ipt3').on('keyup', debounce(5000))
+
+
+
+
+
+
+
+        // function debounce(delay) {
+        //     let timer = null
+        //     return function () {
+        //         clearTimeout(timer)
+        //         timer = setTimeout(function () {
+        //             console.log($(this).val());
+        //         }.bind(this), delay)
+        //     }
+        // }
+        // $('#ipt1').on('keyup', debounce(500))
+        // $('#ipt2').on('keyup', debounce(2500))
+        // $('#ipt3').on('keyup', debounce(4500))
+    </script>
+</body>
+
+</html>
