@@ -16,25 +16,25 @@
 
     <script>
         function debounce(fn, delay) {
+
+            // fn ==> fangfa
+            // delay ==> 1000
             let timer = null
             return function (...args) {
+                // arg ==> [1, 'pingguo']
                 clearTimeout(timer)
                 timer = setTimeout(() => {
+                    // ...arg ==> 1, pingguo
                     fn(...args);
                 }, delay)
             }
         }
-
-
 
         function fangfa(value, ft) {
             console.log(value);
             alert(ft)
         }
 
-        // function fangfa2 (value) {
-        //     alert(value)
-        // }
         let deinput = debounce(fangfa, 1000)
 
         $('#ipt1').on('keyup', function () {
@@ -46,67 +46,24 @@
         $('#ipt3').on('keyup', function () {
             deinput(3, 'li')
         })
-        // $('#ipt2').on('keyup', debounce(fn1(2), 1500))
-        // $('#ipt3').on('keyup', debounce(fn1(3), 3500))
 
+        function debounce(fn, delay) {
+            let timer = null
+            return function (...args) {
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    fn(...args)
+                }, delay)
+            }
+        }
 
-        // $('#ip1').on('keyup', function () {
-        //     setTimeout(() => {
-        //         console.log($(this).val());
-        //     }, 1000)
-        // })
-
-
-
-        // function debounce(delay) {
-        //     let timer = null
-
-        //     return function () {
-        //         // let inpThis = this
-        //         clearTimeout(timer)
-        //         timer = setTimeout(function () {
-        //             console.log($(this).val());
-        //         }.bind(this), delay)
-        //     }
-
-        // }
-
-        // $('#ipt1').on('keyup', debounce(1000))
-        // $('#ipt2').on('keyup', debounce(3000))
-        // $('#ipt3').on('keyup', debounce(6000))
-
-        // function debounce(delay) {
-        //     let timer = null
-        //     return function () {
-        //         clearTimeout(timer)
-        //         timer = setTimeout(function () {
-        //             console.log($(this).val());
-        //         }.bind(this), delay)
-        //     }
-        // }
-
-        // $('#ipt1').on('keyup', debounce(500))
-        // $('#ipt2').on('keyup', debounce(2000))
-        // $('#ipt3').on('keyup', debounce(5000))
-
-
-
-
-
-
-
-        // function debounce(delay) {
-        //     let timer = null
-        //     return function () {
-        //         clearTimeout(timer)
-        //         timer = setTimeout(function () {
-        //             console.log($(this).val());
-        //         }.bind(this), delay)
-        //     }
-        // }
-        // $('#ipt1').on('keyup', debounce(500))
-        // $('#ipt2').on('keyup', debounce(2500))
-        // $('#ipt3').on('keyup', debounce(4500))
+        function fangfa(value) {
+            console.log(value);
+        }
+        let deinput = debounce(fangfa, 1000)
+        $('#ipt1').on('keyup', function () {
+            deinput(1)
+        })
     </script>
 </body>
 
